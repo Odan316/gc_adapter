@@ -1,0 +1,1 @@
+This is Adapter between GetCourse API and different other services
