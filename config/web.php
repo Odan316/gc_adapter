@@ -1,10 +1,12 @@
 <?php
 
+use yii\web\UrlNormalizer;
+
 $params = array_merge(
     require(__DIR__ . '/params.php'),
     require(__DIR__ . '/params-local.php')
 );
-$db = require __DIR__ . '/db.php';
+//$db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
@@ -45,17 +47,32 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        //'db' => $db
     ],
     'params' => $params,
+];
+
+$indexActions = implode('|', [
+    'login',
+    'logout'
+]);
+$controllersList = implode('|', ['just-click']);
+$config['components']['urlManager'] =  [
+    'enablePrettyUrl'     => true,
+    'showScriptName'      => false,
+    'enableStrictParsing' => true,
+    'normalizer'          => [
+        'class'  => 'yii\web\UrlNormalizer',
+        'action' => UrlNormalizer::ACTION_REDIRECT_PERMANENT,
+    ],
+    'rules' => [
+        ''                                                          => 'site/index',
+        '<action:(' . $indexActions . ')>'                          => 'site/<action>',
+        '<controller:(' . $controllersList . ')>'                   => '<controller>/index',
+        '<controller:(' . $controllersList . ')>/<id:\d+>'          => '<controller>/index',
+        '<controller:(' . $controllersList . ')>/<action>/<id:\d+>' => '<controller>/<action>',
+        '<controller:(' . $controllersList . ')>/<action>'          => '<controller>/<action>',
+    ]
 ];
 
 if (YII_ENV_DEV) {

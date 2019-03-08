@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20dd024ee684a3443851080d384d5f3e",
+    "content-hash": "9f06ea311f22162c62191c492d6b3a5b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -208,6 +208,43 @@
                 "html"
             ],
             "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
+            "name": "getcourse-ru/GetCourse-PHP-SDK",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getcourse-ru/GetCourse-PHP-SDK",
+                "reference": "3cfa456df3931f589cee0dec7c4d0bbcc8b8dd05"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "GetCourse": "lib/"
+                }
+            },
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "GetCourse API",
+                    "homepage": "https://github.com/getcourse-ru/GetCourse-PHP-SDK"
+                }
+            ],
+            "description": "GetCourse's PHP SDK for APIs",
+            "homepage": "https://github.com/getcourse-ru/GetCourse-PHP-SDK",
+            "keywords": [
+                "api",
+                "getcourse",
+                "sdk"
+            ],
+            "time": "2018-10-16T09:50:44+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3256,11 +3293,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "getcourse-ru/getcourse-php-sdk": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=7.2.0"
     },
     "platform-dev": []
 }
