@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\components\get_course\UserModel;
+use app\components\just_click\UserModelAdapter;
 use Exception;
 use Yii;
 use yii\filters\VerbFilter;
@@ -40,24 +42,6 @@ class JustClickController extends Controller
 
     /**
      * @throws ForbiddenHttpException
-     *
-     * Формат приъодящих данных
-     * array (
-     * 'name' => имя контакта
-     * 'email' => мейл контакта
-     * 'phone' => телефон контакта
-     * 'city' => город контакта
-     * 'id_group' => номер группы контактов
-     * 'ip' => ip подписчика
-     * 'status' => статус (2 - подписка, 1- активация подписки)
-     * 'utm' => array (
-     * 'medium' => утм-параметр канал
-     * 'source' => утм-параметр источник
-     * 'campaign' => утм-параметр кампания
-     * 'content' => утм-параметр объявление
-     * 'term' => утм-параметр ключ
-     * )
-     * )
      */
     public function actionPutUser()
     {
@@ -65,41 +49,23 @@ class JustClickController extends Controller
             throw new ForbiddenHttpException('Your token is absent or invalid');
         }
 
-        //VarDumper::dump(Yii::$app->request->post());
+        try {
+            $data = Yii::$app->request->post();
+            //VarDumper::dump($data);
 
+            $jcUser = new UserModelAdapter($data);
+            $user = new UserModel();
 
-        $data = Yii::$app->request->post();
+            $user = $jcUser->unloadToModel($user);
+            $user->setRefresh();
 
-        VarDumper::dump($data);
-        $user = new \GetCourse\User();
+            $result = $user->jsonSerialize();
 
-        //$user::setAccountName('account_name');
-
-        //try {
-            if (!empty($data['email'])) {
-                $user->setEmail($data['email']);
-            }
-            if (!empty($data['name'])) {
-                $user->setFirstName($data['name']);
-            }
-            if (!empty($data['phone'])) {
-                $user->setPhone($data['phone']);
-            }
-            if (!empty($data['city'])) {
-                $user->setCity($data['city']);
-            }
-
-            /*$user
-                ->setGroup('шахматисты')
-                ->setGroup('дилетанты')
-                ->setOverwrite();*/
-
-            $result = $user->toArray();
-
-            VarDumper::dump($result);
             //->apiCall($action = 'add');
-        /*} catch (Exception $e) {
+
+            return $result;
+        } catch (Exception $e) {
             echo $e->getMessage();
-        }*/
+        }
     }
 }
