@@ -49,23 +49,19 @@ class JustClickController extends Controller
             throw new ForbiddenHttpException('Your token is absent or invalid');
         }
 
-        try {
-            $data = Yii::$app->request->post();
-            //VarDumper::dump($data);
+        $data = Yii::$app->request->post();
+        //VarDumper::dump($data);
 
-            $jcUser = new UserModelAdapter($data);
-            $user = new UserModel();
+        $jcUser = new UserModelAdapter($data);
+        $user = new UserModel();
 
-            $user = $jcUser->unloadToModel($user);
-            $user->setRefresh();
+        $user = $jcUser->unloadToModel($user);
+        $user->setRefresh();
 
-            $result = $user->jsonSerialize();
+        $result = $user->jsonSerialize();
 
-            //->apiCall($action = 'add');
+        //->apiCall($action = 'add');
 
-            return $result;
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        return $result;
     }
 }

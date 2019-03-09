@@ -9,6 +9,8 @@
 namespace app\components\just_click;
 
 use app\components\get_course\UserModel;
+use app\models\JcGroup;
+use yii\helpers\VarDumper;
 
 /**
  * Class UserModelAdapter
@@ -83,6 +85,13 @@ class UserModelAdapter
     {
         return $this->getValue('city', '');
     }
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->getValue('id_group', '');
+    }
 
     /**
      * @param UserModel $user
@@ -95,6 +104,14 @@ class UserModelAdapter
             ->setFirstName($this->getName())
             ->setPhone($this->getPhone())
             ->setCity($this->getCity());
+
+        $jcGroup = JcGroup::find()->andWhere(['jcId' => $this->getGroup()])->one();
+
+        if(!empty($jcGroup)){
+            foreach($jcGroup->gcGroups as $gcGroup){
+                $user->setGroup($gcGroup->gcId);
+            }
+        }
 
 
         /*$user

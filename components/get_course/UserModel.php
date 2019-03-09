@@ -150,4 +150,21 @@ class UserModel implements \JsonSerializable
     {
         return $this->setParam('system', 'refresh_if_exists', (int) $value);
     }
+
+    /**
+     * @param string $groupName
+     *
+     * @return UserModel
+     */
+    public function setGroup(string $groupName)
+    {
+        if(!empty($groupName)){
+            if(!isset($this->_data['user']['group_name'])){
+                $this->_data['user']['group_name'] = [];
+            }
+            $this->_data['user']['group_name'][] = $groupName;
+        }
+
+        return $this;
+    }
 }
