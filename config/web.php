@@ -9,7 +9,8 @@ $params = array_merge(
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'gc-adapter',
+    'name' => 'GetCourse Adapter Tool',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
