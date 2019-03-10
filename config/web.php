@@ -57,7 +57,7 @@ $indexActions = implode('|', [
     'login',
     'logout'
 ]);
-$controllersList = implode('|', ['just-click']);
+$controllersList = implode('|', ['just-click', 'jc-settings']);
 $config['components']['urlManager'] =  [
     'enablePrettyUrl'     => true,
     'showScriptName'      => false,
