@@ -9,11 +9,6 @@ namespace app\models;
  */
 class JcGroupQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return JcGroup[]|array
@@ -30,5 +25,14 @@ class JcGroupQuery extends \yii\db\ActiveQuery
     public function one($db = null)
     {
         return parent::one($db);
+    }
+
+    /**
+     * @param $id
+     * @return JcGroupQuery
+     */
+    public function withJcId($id)
+    {
+        return $this->andWhere(['jcId' => $id]);
     }
 }

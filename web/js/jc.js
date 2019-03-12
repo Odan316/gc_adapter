@@ -7,15 +7,19 @@ $(document).ready(function () {
         $jcInput.attr('name', $jcInput.attr('name') + '[' + count + ']');
         var $gcInput = $row.find('.gcField');
         $gcInput.attr('name', $gcInput.attr('name') + '[' + count + '][]');
+        $row.find('.num').text(count);
 
         $('.jcTable tbody')
             .append($row);
     });
+
     $(document).on('click', '.addGcGroup', function () {
         var $formGroup = $('.exampleGroup div').clone();
         $formGroup
             .find('input')
-            .attr('name', $(this).parent().find('input').attr('name'));
+            .attr('name', $(this)
+                .parents('tr')
+                .find('.gcField').attr('name'));
         $(this)
             .parents('tr')
             .find('.inputsGroup')

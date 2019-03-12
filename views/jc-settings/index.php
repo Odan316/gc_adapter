@@ -29,11 +29,12 @@ $gcFieldName = Html::getInputName($formModel, 'gcGroups');
         'id' => 'login-form'
     ]); ?>
     <div class="form-group">
-        <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-danger']); ?>
+        <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-warning']); ?>
     </div>
     <table class="table table-striped table-condensed jcTable">
         <thead>
         <tr>
+            <th>#</th>
             <th>Группа на JustClick</th>
             <th>Группы на GetCourse</th>
             <th></th>
@@ -42,14 +43,22 @@ $gcFieldName = Html::getInputName($formModel, 'gcGroups');
         <tbody>
         <?php foreach ($jcGroups as $i => $jcGroup) { ?>
             <tr>
+                <td class="num"><?= $i; ?></td>
                 <td><?php echo Html::textInput("{$jcFieldName}[{$i}]", $jcGroup->jcId,
                         ['class' => 'form-control jcField']); ?></td>
                 <td class="inputsGroup">
-                    <?php foreach ($jcGroup->gcGroups as $gcGroup) { ?>
+                    <?php if (empty($jcGroup->gcGroups)) { ?>
                         <div class="form-group">
-                            <?php echo Html::textInput("{$gcFieldName}[{$i}][]", $gcGroup->gcId,
+                            <?php echo Html::textInput("{$gcFieldName}[{$i}][]", '',
                                 ['class' => 'form-control gcField']); ?>
                         </div>
+                    <?php } else { ?>
+                        <?php foreach ($jcGroup->gcGroups as $gcGroup) { ?>
+                            <div class="form-group">
+                                <?php echo Html::textInput("{$gcFieldName}[{$i}][]", $gcGroup->gcId,
+                                    ['class' => 'form-control gcField']); ?>
+                            </div>
+                        <?php } ?>
                     <?php } ?>
                 </td>
                 <td>
@@ -63,17 +72,18 @@ $gcFieldName = Html::getInputName($formModel, 'gcGroups');
         <?php echo Html::button('Добавить строку', ['class' => 'btn btn-success addJcGroup']) ?>
     </div>
     <div class="form-group">
-        <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-danger']); ?>
+        <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-warning']); ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
 
 <table class="table hide exampleRow">
     <tr>
+        <td class="num"></td>
         <td><?php echo Html::textInput($jcFieldName, '', ['class' => 'form-control jcField']); ?></td>
         <td class="inputsGroup">
             <div class="form-group">
-                <?php echo Html::textInput($jcFieldName, '', ['class' => 'form-control gcField']); ?>
+                <?php echo Html::textInput($gcFieldName, '', ['class' => 'form-control gcField']); ?>
             </div>
         </td>
         <td>

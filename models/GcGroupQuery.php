@@ -9,11 +9,6 @@ namespace app\models;
  */
 class GcGroupQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * {@inheritdoc}
      * @return GcGroup[]|array
@@ -30,5 +25,14 @@ class GcGroupQuery extends \yii\db\ActiveQuery
     public function one($db = null)
     {
         return parent::one($db);
+    }
+
+    /**
+     * @param $id
+     * @return GcGroupQuery
+     */
+    public function withGcId($id)
+    {
+        return $this->andWhere(['gcId' => $id]);
     }
 }
