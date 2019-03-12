@@ -42,6 +42,7 @@ class JustClickController extends Controller
 
     /**
      * @throws ForbiddenHttpException
+     * @throws \Exception
      */
     public function actionPutUser()
     {
@@ -50,17 +51,20 @@ class JustClickController extends Controller
         }
 
         $data = Yii::$app->request->post();
+        Yii::info("Incoming data:\r\n".VarDumper::dumpAsString($data), 'get-course');
         //VarDumper::dump($data);
 
         $jcUser = new UserModelAdapter($data);
         $user = new UserModel();
         $sender = new GetCourseSender();
+        $sender->accessToken = Yii::$app->params['GC-Token'];
+        $sender->accountUrl = Yii::$app->params['GC-AccountUrl'];
 
         $user = $jcUser->unloadToModel($user);
         $user->setRefresh();
 
         //$result = $user->jsonSerialize();
-        $result = $sender->send();
+        $result = $sender->send('add', $user->jsonSerialize());
 
         return $result;
     }

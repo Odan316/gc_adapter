@@ -9,48 +9,62 @@ $params = array_merge(
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'gc-adapter',
-    'name' => 'GetCourse Adapter Tool',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
-    'aliases' => [
+    'id'         => 'gc-adapter',
+    'name'       => 'GetCourse Adapter Tool',
+    'basePath'   => dirname(__DIR__),
+    'bootstrap'  => ['log'],
+    'aliases'    => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'request' => [
+        'request'      => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'WebufcXshSvP1iXLDDJFdkW-5hyNvVSn',
         ],
-        'cache' => [
+        'cache'        => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
+        'user'         => [
+            'identityClass'   => 'app\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+        'mailer'       => [
+            'class'            => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-        'log' => [
+        'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            'targets'    => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class'      => 'yii\log\FileTarget',
+                    'levels'     => ['error'],
+                    'categories' => ['get-course*'],
+                    'logFile'    => '@runtime/logs/api_errors.log',
+                    'logVars'    => []
+                ],
+                [
+                    'class'      => 'yii\log\FileTarget',
+                    'levels'     => ['info', 'warning', 'error'],
+                    'categories' => ['get-course*'],
+                    'logFile'    => '@runtime/logs/api_log.log',
+                    'logVars'    => []
                 ],
             ],
         ],
-        'db' => $db
+        'db'           => $db
     ],
-    'params' => $params,
+    'params'     => $params,
 ];
 
 $indexActions = implode('|', [
@@ -58,7 +72,7 @@ $indexActions = implode('|', [
     'logout'
 ]);
 $controllersList = implode('|', ['just-click', 'jc-settings']);
-$config['components']['urlManager'] =  [
+$config['components']['urlManager'] = [
     'enablePrettyUrl'     => true,
     'showScriptName'      => false,
     'enableStrictParsing' => true,
@@ -66,7 +80,7 @@ $config['components']['urlManager'] =  [
         'class'  => 'yii\web\UrlNormalizer',
         'action' => UrlNormalizer::ACTION_REDIRECT_PERMANENT,
     ],
-    'rules' => [
+    'rules'               => [
         ''                                                          => 'site/index',
         '<action:(' . $indexActions . ')>'                          => 'site/<action>',
         '<controller:(' . $controllersList . ')>'                   => '<controller>/index',
