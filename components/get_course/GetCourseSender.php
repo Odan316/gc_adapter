@@ -9,6 +9,6 @@ class GetCourseSender
 {
     public function send()
     {
-
+        return true;
     }
 }

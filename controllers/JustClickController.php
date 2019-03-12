@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
+use app\components\get_course\GetCourseSender;
 use app\components\get_course\UserModel;
 use app\components\just_click\UserModelAdapter;
-use Exception;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
@@ -54,13 +54,13 @@ class JustClickController extends Controller
 
         $jcUser = new UserModelAdapter($data);
         $user = new UserModel();
+        $sender = new GetCourseSender();
 
         $user = $jcUser->unloadToModel($user);
         $user->setRefresh();
 
-        $result = $user->jsonSerialize();
-
-        //->apiCall($action = 'add');
+        //$result = $user->jsonSerialize();
+        $result = $sender->send();
 
         return $result;
     }
