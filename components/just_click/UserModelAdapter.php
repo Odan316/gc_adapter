@@ -4,6 +4,7 @@ namespace app\components\just_click;
 
 use app\components\get_course\UserModel;
 use app\models\JcGroup;
+use yii\helpers\VarDumper;
 
 /**
  * Class UserModelAdapter
@@ -105,12 +106,6 @@ class UserModelAdapter
                 $user->setGroup($gcGroup->gcId);
             }
         }
-
-
-        /*$user
-            ->setGroup('шахматисты')
-            ->setGroup('дилетанты')
-            ->setOverwrite();*/
 
         return $user;
     }

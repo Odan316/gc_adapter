@@ -2,6 +2,7 @@
 namespace app\components\get_course;
 
 use Yii;
+use yii\helpers\VarDumper;
 
 /**
  * Class GetCourseSender
@@ -13,14 +14,15 @@ class GetCourseSender
     public $accountUrl;
 
     /**
+     * @param $apiResource
      * @param $action
      * @param $params
      * @return bool
      * @throws \Exception
      */
-    public function send($action, $params)
+    public function send($apiResource, $action, $params)
     {
-        $url = $this->getFullUrl();
+        $url = $this->getFullUrl($apiResource);
 
         if(empty($this->accessToken)) {
             throw new \Exception("Token not supplied");
@@ -46,7 +48,6 @@ class GetCourseSender
         curl_setopt ($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt ($curl, CURLOPT_SSL_VERIFYHOST, 0);
         $body = curl_exec ($curl);
-
         $result = new \StdClass();
         $result->status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $result->body = $body;
@@ -62,14 +63,15 @@ class GetCourseSender
     }
 
     /**
+     * @param $apiResource
      * @return string
      * @throws \Exception
      */
-    private function getFullUrl() {
+    private function getFullUrl($apiResource) {
         if(empty($this->accountUrl)) {
             throw new \Exception("Account url not supplied");
         }
-        return 'https://' . $this->accountUrl . '/pl/api/';
+        return 'https://' . $this->accountUrl . '/pl/api/'.$apiResource;
     }
 
 

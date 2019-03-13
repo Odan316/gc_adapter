@@ -52,7 +52,6 @@ class JustClickController extends Controller
 
         $data = Yii::$app->request->post();
         Yii::info("Incoming data:\r\n".VarDumper::dumpAsString($data), 'get-course');
-        //VarDumper::dump($data);
 
         $jcUser = new UserModelAdapter($data);
         $user = new UserModel();
@@ -64,7 +63,7 @@ class JustClickController extends Controller
         $user->setRefresh();
 
         //$result = $user->jsonSerialize();
-        $result = $sender->send('add', $user->jsonSerialize());
+        $result = $sender->send('users', 'add', $user->jsonSerialize());
 
         return $result;
     }
