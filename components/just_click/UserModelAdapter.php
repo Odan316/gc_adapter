@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: odan
- * Date: 09.03.19
- * Time: 11:29
- */
 
 namespace app\components\just_click;
 
 use app\components\get_course\UserModel;
 use app\models\JcGroup;
-use yii\helpers\VarDumper;
 
 /**
  * Class UserModelAdapter

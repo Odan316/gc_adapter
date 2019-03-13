@@ -33,6 +33,8 @@ class JcSettingsController extends Controller
      * Displays homepage.
      *
      * @return string
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionIndex()
     {

@@ -46,7 +46,7 @@ class JustClickController extends Controller
      */
     public function actionPutUser()
     {
-        if (Yii::$app->request->get('token') !== Yii::$app->params['timeWebToken']) {
+        if (Yii::$app->request->get('token') !== Yii::$app->params['Auth-Token']) {
             throw new ForbiddenHttpException('Your token is absent or invalid');
         }
 

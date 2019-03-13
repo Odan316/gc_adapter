@@ -7,9 +7,9 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7.2.0",
-        "ext-sqlite3": "~7.2.0",
-        "ext-curl": "~7.2.0",
-        "lib-curl": "~7.58.0",
+        "ext-sqlite3": ">=7.2.0",
+        "ext-curl": ">=7.2.0",
+        "lib-curl": "*",
         "yiisoft/yii2": "~2.0.16",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",

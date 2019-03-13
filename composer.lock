@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "912b24bcd632c918f217c49e9399bf43",
+    "content-hash": "98b557111552d83221c9c5d07261c630",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -3300,8 +3300,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.2.0",
-        "ext-sqlite3": "~7.2.0",
-        "ext-curl": "~7.2.0",
+        "ext-sqlite3": ">=7.2.0",
+        "ext-curl": ">=7.2.0",
         "lib-curl": "~7.58.0"
     },
     "platform-dev": []
